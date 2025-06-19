@@ -8,14 +8,14 @@ window.onload = function() {
         physics: {
             default: 'arcade',
             arcade: {
-                debug: true,    
+                debug: false,    
                 gravity: { y: 0 }
             }
         },
         audio: {
             disableWebAudio: false
         },
-        scene: [AnimacoesPersonagens, UIScene, MenuScene, JogoScene, GameOver, CenaFinal],
+        scene: [AnimacoesPersonagens, MenuScene, JogoScene, UIScene, GameOver, CenaFinal],
     }
 
     var jogo = new Phaser.Game(configuracoes);

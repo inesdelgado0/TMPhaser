@@ -144,19 +144,16 @@ class JogoScene extends Phaser.Scene {
                 0.15
             );
             zonaInteracao.setStrokeStyle(1, 0xffff00);
-
-            if (tipo.startsWith("bau_") || tipo === "placar") {
-            // Cria uma caixa invisível de colisão (bloqueia o jogador)
-            const colisor = this.add.rectangle(posX, posY, width, height);
-            this.physics.add.existing(colisor, true);
-            this.physics.add.collider(this.player, colisor);
-            }
-            
             this.physics.add.existing(zonaInteracao, true);
             zonaInteracao.setVisible(false);
-
-            // Guarda para interações com a tecla E
             this.objetosInterativos.push({ tipo, zona: zonaInteracao });
+
+            // 🔷 Zona separada para bloqueio físico
+            if (tipo.startsWith("bau_") || tipo === "placar") {
+                const colisor = this.add.rectangle(posX, posY, width, height);
+                this.physics.add.existing(colisor, true);
+                this.physics.add.collider(this.player, colisor);
+            }
         });
 
 
@@ -202,9 +199,11 @@ class JogoScene extends Phaser.Scene {
         this.qteTipoGato = null;
 
         // Inicializa a cena de UI
-        this.scene.launch('UIScene');
-        this.scene.get('UIScene').limparMensagem();
-        this.scene.bringToTop('UIScene'); //garante que a UI está visível
+        this.time.delayedCall(100, () => {
+                    this.scene.launch('UIScene');
+                    this.scene.get('UIScene').limparMensagem();
+                    this.scene.bringToTop('UIScene'); //garante que a UI está visível
+                });
 
         // Quando a UI estiver pronta, reseta contador e ícone
         this.events.once('uiPronta', () => {

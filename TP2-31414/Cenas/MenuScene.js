@@ -157,9 +157,9 @@ class MenuScene extends Phaser.Scene {
 
         this.ajudaContainer = this.add.container(this.scale.width / 2, 200);
 
-        const fundo = this.add.rectangle(0, 0, 380, 200, 0x000000, 1).setOrigin(0.5);
+        const fundo = this.add.rectangle(0, 0, 380, 250, 0x000000, 1).setOrigin(0.5);
 
-        const titulo = this.add.text(0, -70, 'Instruções do Jogo', {
+        const titulo = this.add.text(0, -80, 'Instruções do Jogo', {
         fontFamily: 'monospace',
         fontSize: '16px',
         color: '#ffffff',
@@ -177,7 +177,7 @@ class MenuScene extends Phaser.Scene {
         }
         );
 
-        const botaoFechar = this.add.text(165, -75, '✖', {
+        const botaoFechar = this.add.text(165, -98, '✖', {
         fontSize: '18px',
         fontFamily: 'monospace',
         color: '#ff4444'
