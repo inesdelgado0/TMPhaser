@@ -67,7 +67,7 @@ class UIScene extends Phaser.Scene {
             .on('pointerdown', () => {
                 this.scene.get('JogarJogo').sound.stopAll();
                 this.scene.stop('JogarJogo');
-                this.scene.stop('UIScene');
+                this.scene.stop();
                 this.scene.start('InicioJogo');
             });
             

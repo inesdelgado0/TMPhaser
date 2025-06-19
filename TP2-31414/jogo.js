@@ -15,7 +15,7 @@ window.onload = function() {
         audio: {
             disableWebAudio: false
         },
-        scene: [AnimacoesPersonagens, MenuScene, UIScene, JogoScene, GameOver, CenaFinal],
+        scene: [AnimacoesPersonagens, UIScene, MenuScene, JogoScene, GameOver, CenaFinal],
     }
 
     var jogo = new Phaser.Game(configuracoes);
