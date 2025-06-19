@@ -41,7 +41,7 @@ class UIScene extends Phaser.Scene {
             .setDepth(1000);
 
         // Cria o texto do contador de entregas com estilo personalizado
-        this.contadorTexto = this.add.text(600, 20, '📦 Entregues: 0/4', {
+        this.contadorTexto = this.add.text(600, 20, 'Entregues: 0/4', {
             fontSize: '14px',
             fontFamily: 'monospace',
             color: '#ffffff',
@@ -65,6 +65,7 @@ class UIScene extends Phaser.Scene {
             .setDepth(1001)
             .setScale(0.3)
             .on('pointerdown', () => {
+                this.limparMensagem(); // Limpa mensagens antes de parar as cenas
                 this.scene.get('JogarJogo').sound.stopAll();
                 this.scene.stop('JogarJogo');
                 this.scene.stop();

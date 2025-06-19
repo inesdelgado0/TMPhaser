@@ -37,6 +37,7 @@ class GameOver extends Phaser.Scene {
             .on('pointerover', () => menuButton.setStyle({ backgroundColor: '#222222' }))
             .on('pointerout', () => menuButton.setStyle({ backgroundColor: '#000000' }))
             .on('pointerdown', () => {
+                this.scene.get('UIScene').limparMensagem();
                 this.sound.stopAll();
                 this.scene.stop();
                 this.scene.start('InicioJogo');

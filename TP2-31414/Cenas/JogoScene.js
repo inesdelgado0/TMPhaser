@@ -228,7 +228,7 @@ update() {
 
             if (todasTeclas.some(p => p))
             {
-                this.mostrarMensagem("Errou a sequência. Perdeu uma vida!");
+                this.mostrarMensagem("Errou a sequência!");
                 this.qteIndex = 0;
                 this.perderVida();
 
