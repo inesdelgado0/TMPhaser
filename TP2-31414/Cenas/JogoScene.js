@@ -148,7 +148,7 @@ class JogoScene extends Phaser.Scene {
             zonaInteracao.setVisible(false);
             this.objetosInterativos.push({ tipo, zona: zonaInteracao });
 
-            // 🔷 Zona separada para bloqueio físico
+            //Zona separada para bloqueio físico
             if (tipo.startsWith("bau_") || tipo === "placar") {
                 const colisor = this.add.rectangle(posX, posY, width, height);
                 this.physics.add.existing(colisor, true);
@@ -514,9 +514,11 @@ update() {
 
     qteSucesso() {
         this.qteAtiva = false;
+
         const tipo = this.qteTipoGato;
 
         this.mostrarMensagem(`Pegaste no gato ${ tipo}.`);
+        this.scene.get('UIScene').limparMensagem();
 
         this.gatoNaMochila = tipo;
 
