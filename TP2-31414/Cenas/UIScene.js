@@ -65,7 +65,6 @@ class UIScene extends Phaser.Scene {
             .setDepth(1001)
             .setScale(0.3)
             .on('pointerdown', () => {
-                this.limparMensagem(); // Limpa mensagens antes de parar as cenas
                 this.scene.get('JogarJogo').sound.stopAll();
                 this.scene.stop('JogarJogo');
                 this.scene.stop();

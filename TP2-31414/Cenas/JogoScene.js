@@ -144,6 +144,14 @@ class JogoScene extends Phaser.Scene {
                 0.15
             );
             zonaInteracao.setStrokeStyle(1, 0xffff00);
+
+            if (tipo.startsWith("bau_") || tipo === "placar") {
+            // Cria uma caixa invisível de colisão (bloqueia o jogador)
+            const colisor = this.add.rectangle(posX, posY, width, height);
+            this.physics.add.existing(colisor, true);
+            this.physics.add.collider(this.player, colisor);
+            }
+            
             this.physics.add.existing(zonaInteracao, true);
             zonaInteracao.setVisible(false);
 
