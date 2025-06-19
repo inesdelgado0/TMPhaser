@@ -147,24 +147,11 @@ class JogoScene extends Phaser.Scene {
             this.physics.add.existing(zonaInteracao, true);
             zonaInteracao.setVisible(false);
 
-            //Zona de colisão de colisao para impedir passagem
-            const zonaColisao = this.add.rectangle(
-                posX,
-                posY,
-                width,
-                height,
-                0xff0000,
-                0
-            );
-            this.physics.add.existing(zonaColisao, true);
-            zonaColisao.setVisible(false);
-            this.physics.add.collider(this.player, zonaColisao);
-
             // Guarda para interações com a tecla E
             this.objetosInterativos.push({ tipo, zona: zonaInteracao });
         });
 
-        
+
         const colisionGroup = this.criarColisoresDosTiles(map, tileset, [
             casasLayer,
             arvoresLayer,
@@ -186,11 +173,11 @@ class JogoScene extends Phaser.Scene {
         this.teclaE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
 
         // Para QTE (quick time event)
-    this.qteTeclas = {
-        A: this.input.keyboard.addKey('A'),
-        S: this.input.keyboard.addKey('S'),
-        D: this.input.keyboard.addKey('D')
-    }
+        this.qteTeclas = {
+            A: this.input.keyboard.addKey('A'),
+            S: this.input.keyboard.addKey('S'),
+            D: this.input.keyboard.addKey('D')
+        }
 
 
         //Estados iniciais de jogo
@@ -219,6 +206,7 @@ class JogoScene extends Phaser.Scene {
 }
 
 update() {
+
     if (this.qteAtiva)
     {
         const teclaEsperada = this.qteSequencia[this.qteIndex];
@@ -250,7 +238,7 @@ update() {
         }
     }
 
-    return; // ⛔ Sai do update! Não deixa mover, nem animações, nada.
+    return
     }
 
     const p = this.player;
@@ -435,14 +423,16 @@ update() {
                             this.mostrarMensagem("O gato tricolor adora o peixe e deixa-se pegar!");
                         }
                     }
-                    else
-                    {
-                        this.mostrarMensagem(`Pegaste no gato ${ tipo}.`);
-                    }
-                    if (tipo === "siames")
+
+                    else if (tipo === "siames")
                     {
                         this.startQTEparaGato(tipo);
                         return; // espera o QTE antes de permitir pegar
+                    }
+
+                    else
+                    {
+                        this.mostrarMensagem(`Pegaste no gato ${ tipo}.`);
                     }
 
                     // Guarda o tipo e remove o sprite do gato
@@ -456,8 +446,6 @@ update() {
                     }
                 }
             }
-
-
         }
     }
 }
@@ -502,6 +490,21 @@ update() {
         return grupo;
     }
 
+    startQTEparaGato(tipo) {
+        const opcoes = ['A', 'S', 'D'];
+        const comprimento = 7; // muda para mais se quiseres mais longa
+
+        this.qteSequencia = Array.from({ length: comprimento }, () =>
+            Phaser.Utils.Array.GetRandom(opcoes)
+            );
+
+        this.qteIndex = 0;
+        this.qteAtiva = true;
+        this.qteTipoGato = tipo;
+
+        this.mostrarMensagem(`Pressiona rapidamente: ${ this.qteSequencia.join(" ➜ ")}`);
+    }
+
     qteSucesso() {
         this.qteAtiva = false;
         const tipo = this.qteTipoGato;
@@ -519,21 +522,6 @@ update() {
         }
 
         this.qteTipoGato = null;
-    }
-
-    startQTEparaGato(tipo) {
-        const opcoes = ['A', 'S', 'D'];
-        const comprimento = 7; // muda para mais se quiseres mais longa
-
-        this.qteSequencia = Array.from({ length: comprimento }, () =>
-            Phaser.Utils.Array.GetRandom(opcoes)
-            );
-
-        this.qteIndex = 0;
-        this.qteAtiva = true;
-        this.qteTipoGato = tipo;
-
-        this.mostrarMensagem(`Pressiona rapidamente: ${ this.qteSequencia.join(" ➜ ")}`);
     }
 
     perderVida() {
